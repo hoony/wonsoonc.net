@@ -1,0 +1,103 @@
+
+/* Everything but the jumbotron gets side spacing for mobile first views */
+.fb-like {
+	display: block !important;
+	float: right;
+	margin-right: 20px;
+	bottom: 20px;
+}
+/* body {
+	background: -webkit-linear-gradient(left, #2FB5C0 , #EB495E);
+	background: -o-linear-gradient(right, #2FB5C0, #EB495E);
+	background: -moz-linear-gradient(right, #2FB5C0, #EB495E);
+	background: linear-gradient(to right, #2FB5C0, #EB495E);
+} 
+*/
+
+.left-background {
+	background-color: #2fb5c0;
+	width: 50%;
+	height: 100%;
+	position: fixed;
+	z-index: 2;
+}
+
+.right-background {
+	background-color: #eb495e;
+	width: 100%;
+	height: 100%;
+	top: 0px;
+	position: fixed;
+	z-index:1;
+}
+.container {
+	position: relative !important;
+	margin: 0 auto;
+	background-image: url('https://farm3.staticflickr.com/2928/14205768551_b4db1f5153_o.jpg');
+	background-repeat: no-repeat;
+	width: 1280px;
+	height: 1400px;
+	z-index: 3;
+}
+
+
+
+.walk, .km, .kcal {
+	text-align: center;
+	display: block;
+	position: absolute;
+	font-size: 31px;
+	color: black !important;
+	transform:rotate(-20deg);
+	-ms-transform:rotate(-20deg); /* IE 9 */
+	-webkit-transform:rotate(-20deg); /* Opera, Chrome, and Safari */
+}
+
+.walk {
+	top: 370px;
+	left: 460px;
+}
+
+.kcal {
+	top: 330px;
+	left: 580px;
+}
+
+.km {
+	top: 290px;
+	left: 740px;
+}
+
+.today {
+	position: absolute;
+	top: 0px;
+	left: 890px;
+	color: #F99EAD;
+	font-size: 30px;
+	letter-spacing: 2px;
+}
+
+.sub_info {
+	font-size: 20px;
+	color: #2CB6BE;
+}
+
+/* Map */
+.content {
+	flex: auto;
+}
+
+#map {
+	position: relative;
+	top: 590px;
+	width: 100%;
+	min-height: 670px;
+	border-radius: 40px;
+}
+
+/* Custom page footer */
+.footer {
+  padding-top: 19px;
+  color: #777;
+  border-top: 1px solid #e5e5e5;
+}
