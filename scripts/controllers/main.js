@@ -49,7 +49,6 @@ angular.module('wonsoonApp')
 		};
 
 		var currentMarker,
-			currentLocation,
 			pictures_markers = [],
 			pictures = [],
 			route_positions = [];
@@ -57,23 +56,8 @@ angular.module('wonsoonApp')
 		// marker icons
 		var icon = new daum.maps.MarkerImage('https://farm6.staticflickr.com/5515/14181411316_e679cd61f6_o.png', new daum.maps.Size(31, 34));
 		var icon_click = new daum.maps.MarkerImage('https://farm6.staticflickr.com/5568/14017946547_caa4ce9424_o.png', new daum.maps.Size(31, 34));
-		var icon_wonsoon = new daum.maps.MarkerImage('https://farm3.staticflickr.com/2936/14206569692_49cd5a620d_o.png', new daum.maps.Size(110, 166));
+		var icon_wonsoon = new daum.maps.MarkerImage('https://farm3.staticflickr.com/2936/14206569692_49cd5a620d_o.png', new daum.maps.Size(140, 166));
 		var icon_start = new daum.maps.MarkerImage('https://farm6.staticflickr.com/5079/14022441047_5bcd85a3b1_o.png', new daum.maps.Size(110, 80));
-
-
-		// get current location
-		$.ajax(api.url + api.options.location.current, {
-			method: 'get',
-			async: false,
-			crossDomain: true,
-			contentType: "application/json",
-			success: function(data) {
-				currentLocation = new daum.maps.LatLng(data.lat, data.lng);
-			},
-			error: function(err) {
-				console.log(err);
-			}
-		});
 
 		// get current activities
 		$.ajax(api.url + api.options.activityInfo.oneDay + date, {
