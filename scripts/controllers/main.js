@@ -3,7 +3,6 @@
 angular.module('wonsoonApp')
 	.controller('MainCtrl', function ($scope, $http, $routeParams, $location, $window) {
 		$http.defaults.useXDomain = true;
-	console.log($routeParams.date);
 		var dateList = ['2014-05-17','2014-05-18', '2014-05-19', '2014-05-20', '2014-05-21', '2014-05-22', '2014-05-23', '2014-05-24', '2014-05-25', '2014-05-26', '2014-05-27', '2014-05-28', '2014-05-29', '2014-05-30', '2014-05-31', '2014-06-01', '2014-06-02', '2014-06-03', '2014-06-04'];
 		var date = '',
 				today = new Date(),
@@ -48,7 +47,8 @@ angular.module('wonsoonApp')
 			}
 		};
 
-		var currentMarker,
+		var center,
+			currentMarker,
 			pictures_markers = [],
 			pictures = [],
 			route_positions = [];
@@ -102,8 +102,14 @@ angular.module('wonsoonApp')
 			async: false,
 			crossDomain: true,
 			success: function(data) {
-				for(var i = 0; i < data.route.length; i++) {
-					route_positions.push(new daum.maps.LatLng(data.route[i].lat, data.route[i].lng));
+				if(data.route.length != 0) {
+					for(var i = 0; i < data.route.length; i++) {
+						route_positions.push(new daum.maps.LatLng(data.route[i].lat, data.route[i].lng));
+					}
+					center = route_positions[route_positions.length -1];
+				} else {
+					console.log('here');
+					center = new daum.maps.LatLng('37.510965233668685', '127.05065575428307');
 				}
 			},
 			error: function(err) {
@@ -113,7 +119,7 @@ angular.module('wonsoonApp')
 
 		// draw default map
 		var map = new daum.maps.Map(document.getElementById('map'), {
-			center: route_positions[route_positions.length -1],
+			center: center,
 			level: 3
 		});
 		var mapTypeControl = new daum.maps.MapTypeControl();
