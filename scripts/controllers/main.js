@@ -126,7 +126,7 @@ angular.module('wonsoonApp')
 		// draw default map
 		var map = new daum.maps.Map(document.getElementById('map'), {
 			center: center,
-			level: 3
+			level: 9
 		});
 		var mapTypeControl = new daum.maps.MapTypeControl();
 		map.addControl(mapTypeControl, daum.maps.ControlPosition.TOPRIGHT);
@@ -149,10 +149,10 @@ angular.module('wonsoonApp')
 		// draw pictures_markers and show infoWindow for each pictures_markers
 		for(var i= 0; i < pictures.length; i++) {
 			pictures_markers[i] = new daum.maps.Marker({position: pictures[i].position, image: icon});
-			pictures_markers[i].info = new daum.maps.InfoWindow({
-				content: "<img src='" + pictures[i].url + "' style='width: 250px;' />"
-			});
+			pictures_markers[i].pictures_url = "<img src='" + pictures[i].url + "' style='width: 250px;' />";
+			pictures_markers[i].info = new daum.maps.InfoWindow();
 			daum.maps.event.addListener(pictures_markers[i], 'mouseover', function() {
+				this.info.setContent(this.pictures_url);
 				this.info.open(map, this);
 				this.setImage(icon_click);
 			});
