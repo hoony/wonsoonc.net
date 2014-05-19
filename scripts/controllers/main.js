@@ -65,7 +65,7 @@ angular.module('wonsoonApp')
 			crossDomain: true,
 			success: function(data) {
 				$scope.calorie = data.activities.calorie;
-				$scope.distance = data.activities.distance;
+				$scope.distance = (0.001 * data.activities.distance);
 				$scope.step = data.activities.step;
 				$scope.sub_calorie = '7 * 10';
 				$scope.sub_distance = 12;
@@ -86,14 +86,14 @@ angular.module('wonsoonApp')
 					var picture = {};
 					picture.position = new daum.maps.LatLng(data.pictures[i]['lat'], data.pictures[i]['lng']);
 					picture.url = 'http://121.78.54.210:5018/wonsoon' + data.pictures[i]['url'];
-					console.log("picture " + i);
-					console.log('lat: ' + data.pictures[i].lat);
-					console.log('lng: ' + data.pictures[i].lng);
-					console.log('url: ' + data.pictures[i].url);
-					console.log('final url: '+ picture.url);
+					//console.log("picture " + i);
+					//console.log('lat: ' + data.pictures[i].lat);
+					//console.log('lng: ' + data.pictures[i].lng);
+					//console.log('url: ' + data.pictures[i].url);
+					//console.log('final url: '+ picture.url);
 					pictures.push(picture);
-					return;
 				}
+				return;
 			},
 			error: function(err) {
 				console.log(err);
@@ -150,7 +150,7 @@ angular.module('wonsoonApp')
 		for(var i= 0; i < pictures.length; i++) {
 			pictures_markers[i] = new daum.maps.Marker({position: pictures[i].position, image: icon});
 			pictures_markers[i].info = new daum.maps.InfoWindow({
-				content: "<img src='" + pictures[i].url + "' style='width: 300px;' />"
+				content: "<img src='" + pictures[i].url + "' style='width: 250px;' />"
 			});
 			daum.maps.event.addListener(pictures_markers[i], 'mouseover', function() {
 				this.info.open(map, this);
