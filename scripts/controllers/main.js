@@ -148,7 +148,7 @@ angular.module('wonsoonApp')
 		var oMap = new nhn.api.map.Map(document.getElementById('map'), {
 			point : center,
 			zoom : defaultLevel,
-			enableWheelZoom : true,
+			enableWheelZoom : false,
 			enableDragPan : true,
 			enableDblClickZoom : false,
 			mapMode : 0,
@@ -175,52 +175,60 @@ angular.module('wonsoonApp')
 		mapInfoWindow.setVisible(false);
 		oMap.addOverlay(mapInfoWindow);
 
-		var oLabel = new nhn.api.map.MarkerLabel();
+		var oLabel = new nhn.api.map.MarkerLabel({
+			detectCoveredMarker: false
+		});
 		oMap.addOverlay(oLabel);
 
-		mapInfoWindow.attach('changeVisible', function(oCustomEvent) {
-			if(oCustomEvent.visible) {
-				oLabel.setVisible(false);
-			}
-		});
+		//mapInfoWindow.attach('changeVisible', function(oCustomEvent) {
+		//	if(oCustomEvent.visible) {
+		//		oLabel.setVisible(false);
+		//	}
+		//});
 
 		oMap.attach('mouseenter', function(oCustomEvent) {
 			var oTarget = oCustomEvent.target;
 
 			if(oTarget instanceof nhn.api.map.Marker) {
 				var oMarker = oTarget;
-				oLabel.setVisible(true, oMarker);
+				if(oMarker.getIcon() != icon_start && oMarker.getIcon() != icon_wonsoon) {
+					oMarker.setIcon(icon_click);
+					mapInfoWindow.setVisible(false);
+					oLabel.setVisible(true, oMarker);
+				}
 			}
 		});
 
 		oMap.attach('mouseleave', function(oCustomEvent) {
 			var oTarget = oCustomEvent.target;
 			if (oTarget instanceof nhn.api.map.Marker) {
-				oLabel.setVisible(false);
+				if(oTarget.getIcon() != icon_start && oTarget.getIcon() != icon_wonsoon) {
+					oLabel.setVisible(false);
+					oTarget.setIcon(icon);
+				}
 			}
 		});
-
-		if(route_positions.length != 0) {
-			currentMarker = new nhn.api.map.Marker(icon_wonsoon);
-			currentMarker.setPoint(route_positions[route_positions.length - 1]);
-			oMap.addOverlay(currentMarker);
-		
-			startMarker = new nhn.api.map.Marker(icon_start);
-			startMarker.setPoint(route_positions[0]);
-			oMap.addOverlay(startMarker);
-			
-			oPolyLine = new nhn.api.map.Polyline(route_positions, {
-				strokeColor: '#f00',
-				strokeWidth: 5,
-				strokeOpacity: 0.5
-			});
-			oMap.addOverlay(oPolyLine);
-		}
 
 		// show markers
 		for ( var i = 0; i< pictures.length; i++) {
 			pictures_markers[i] = new nhn.api.map.Marker(icon, {title: "<img src='" + pictures[i].url + "' style='width:200px; height:300px;' class='pics'/>"});
 			pictures_markers[i].setPoint(pictures[i].position);
 			oMap.addOverlay(pictures_markers[i]);
+		}
+
+		if(route_positions.length != 0) {
+			currentMarker = new nhn.api.map.Marker(icon_wonsoon);
+			currentMarker.setPoint(route_positions[route_positions.length - 1]);
+			oMap.addOverlay(currentMarker);
+			startMarker = new nhn.api.map.Marker(icon_start);
+			startMarker.setPoint(route_positions[0]);
+			oMap.addOverlay(startMarker);
+
+			oPolyLine = new nhn.api.map.Polyline(route_positions, {
+				strokeColor: '#f00',
+				strokeWidth: 5,
+				strokeOpacity: 0.5
+			});
+			oMap.addOverlay(oPolyLine);
 		}
 });
