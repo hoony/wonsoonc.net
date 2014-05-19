@@ -5,7 +5,7 @@
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
 	<head>
 		<meta charset="utf-8">
-		<title></title>
+		<title>원순씨를 찾아라!</title>
 		<meta name="description" content="">
 		<meta name="viewport" content="width=device-width">
 		<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
@@ -17,6 +17,7 @@
 		<!-- build:css({.tmp,app}) styles/main.css -->
 		<link rel="stylesheet" href="styles/main.css">
 		<!-- endbuild -->
+		<link rel="shortcut icon" href="./favicon.ico">
 	</head>
 	<body ng-app="wonsoonApp">
 		<div id="fb-root"></div>
@@ -33,9 +34,14 @@
 
 		<!-- Add your site or application content here -->
 		<div class="left-background"></div>
-		<div ng-view=""></div>
+		<div class="body">
+			<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://findwonsoonc.net" data-text="원순씨를 찾아라" data-lang="ko">트윗하기</a>
+			<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+			<div class="fb-like" data-href="http://findwonsoonc.net" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+			<div ng-view="">
+			</div>
+		</div>
 		<div class="right-background"></div>
-		<div class="fb-like" data-href="https://wonsoon.chunsik.org" data-width="100px" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
 		<!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
 		<script>
 			 (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -46,7 +52,7 @@
 			 ga('create', 'UA-XXXXX-X');
 			 ga('send', 'pageview');
 		</script>
-		<script type="text/javascript" src="http://apis.daum.net/maps/maps3.js?apikey=f224f50144a64d8902dc96718697898b1db0e208"></script>
+		<script type="text/javascript" src="http://apis.daum.net/maps/maps3.js?apikey=903a853e878aa7688f7a7bcacea2a51e78353121"></script>
 
 
 

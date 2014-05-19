@@ -1,10 +1,20 @@
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
-.fb-like {
+.twitter-share-button, .fb-like {
+	position: absolute !important;
 	display: block !important;
-	float: right;
 	margin-right: 20px;
-	bottom: 20px;
+	z-index: 10;
+}
+
+.fb-like {
+	left: 300px;
+	bottom: 65px;
+}
+
+.twitter-share-button {
+	left: 220px;
+	bottom: 70px;
 }
 /* body {
 	background: -webkit-linear-gradient(left, #2FB5C0 , #EB495E);
@@ -30,10 +40,16 @@
 	position: fixed;
 	z-index:1;
 }
+
+.body {
+	width: 1280px;
+	height: 1400px;
+	position: relative;
+}
 .container {
 	position: relative !important;
 	margin: 0 auto;
-	background-image: url('https://farm3.staticflickr.com/2928/14205768551_b4db1f5153_o.jpg');
+	background-image: url('https://farm6.staticflickr.com/5534/14218966684_3e24d22e1a_o.jpg');
 	background-repeat: no-repeat;
 	width: 1280px;
 	height: 1400px;
@@ -42,7 +58,7 @@
 
 
 
-.walk, .km, .kcal {
+.walk, .km, .kcal, .sub_km, .sub_kcal {
 	text-align: center;
 	display: block;
 	position: absolute;
@@ -53,6 +69,11 @@
 	-webkit-transform:rotate(-20deg); /* Opera, Chrome, and Safari */
 }
 
+.sub_km, .sub_kcal {
+	color: #2FB5C0 !important;
+	font-size: 20px;
+}
+
 .walk {
 	top: 370px;
 	left: 460px;
@@ -60,14 +81,23 @@
 
 .kcal {
 	top: 330px;
-	left: 580px;
+	left: 610px;
+}
+
+.sub_kcal {
+	top: 420px;
+	left: 630px;
 }
 
 .km {
 	top: 290px;
-	left: 740px;
+	left: 770px;
 }
 
+.sub_km {
+	top: 375px;
+	left: 810px;
+}
 .today {
 	position: absolute;
 	top: 0px;

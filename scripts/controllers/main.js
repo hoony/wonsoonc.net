@@ -2,7 +2,6 @@
 
 angular.module('wonsoonApp')
 	.controller('MainCtrl', function ($scope, $http, $routeParams, $location, $window) {
-		$http.defaults.useXDomain = true;
 		var dateList = ['2014-05-17','2014-05-18', '2014-05-19', '2014-05-20', '2014-05-21', '2014-05-22', '2014-05-23', '2014-05-24', '2014-05-25', '2014-05-26', '2014-05-27', '2014-05-28', '2014-05-29', '2014-05-30', '2014-05-31', '2014-06-01', '2014-06-02', '2014-06-03', '2014-06-04'];
 		var date = '',
 				today = new Date(),
@@ -56,7 +55,7 @@ angular.module('wonsoonApp')
 		// marker icons
 		var icon = new daum.maps.MarkerImage('https://farm6.staticflickr.com/5515/14181411316_e679cd61f6_o.png', new daum.maps.Size(31, 34));
 		var icon_click = new daum.maps.MarkerImage('https://farm6.staticflickr.com/5568/14017946547_caa4ce9424_o.png', new daum.maps.Size(31, 34));
-		var icon_wonsoon = new daum.maps.MarkerImage('https://farm3.staticflickr.com/2936/14206569692_49cd5a620d_o.png', new daum.maps.Size(140, 166));
+		var icon_wonsoon = new daum.maps.MarkerImage('https://farm3.staticflickr.com/2920/14239339603_1bb69d6b0e_o.png', new daum.maps.Size(140, 166));
 		var icon_start = new daum.maps.MarkerImage('https://farm6.staticflickr.com/5079/14022441047_5bcd85a3b1_o.png', new daum.maps.Size(110, 80));
 
 		// get current activities
@@ -69,7 +68,8 @@ angular.module('wonsoonApp')
 				$scope.distance = data.activities.distance;
 				$scope.step = data.activities.step;
 				$scope.sub_calorie = '7 * 10';
-				$scope.sub_distance = 12; 
+				$scope.sub_distance = 12;
+				return;
 			},
 			error: function(err) {
 				console.log(err);
@@ -86,7 +86,13 @@ angular.module('wonsoonApp')
 					var picture = {};
 					picture.position = new daum.maps.LatLng(data.pictures[i]['lat'], data.pictures[i]['lng']);
 					picture.url = 'http://121.78.54.210:5018/wonsoon' + data.pictures[i]['url'];
+					console.log("picture " + i);
+					console.log('lat: ' + data.pictures[i].lat);
+					console.log('lng: ' + data.pictures[i].lng);
+					console.log('url: ' + data.pictures[i].url);
+					console.log('final url: '+ picture.url);
 					pictures.push(picture);
+					return;
 				}
 			},
 			error: function(err) {
@@ -108,9 +114,9 @@ angular.module('wonsoonApp')
 					}
 					center = route_positions[route_positions.length -1];
 				} else {
-					console.log('here');
 					center = new daum.maps.LatLng('37.510965233668685', '127.05065575428307');
 				}
+				return;
 			},
 			error: function(err) {
 				console.log(err);
