@@ -14,7 +14,7 @@ angular.module('wonsoonApp')
 				}
 			}
 		} else {
-			date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+			date = today.getFullYear() + '-0' + (today.getMonth() + 1) + '-' + today.getDate();
 			validUrl = true;
 		}
 
@@ -23,6 +23,32 @@ angular.module('wonsoonApp')
 		}
 		
 		$scope.showToday = (today.getMonth() + 1) + '.' + today.getDate();
+		$scope.dateImgList = [
+			{'src': '../images/date/white/2014-05-19.png', 'id': '2014-05-19', 'href': '/#/date/2014-05-19'},
+			{'src': '../images/date/white/2014-05-20.png', 'id': '2014-05-20', 'href': '/#/date/2014-05-20'},
+			{'src': '../images/date/white/2014-05-21.png', 'id': '2014-05-21', 'href': '/#/date/2014-05-21'},
+			{'src': '../images/date/white/2014-05-22.png', 'id': '2014-05-22', 'href': '/#/date/2014-05-22'},
+			{'src': '../images/date/white/2014-05-23.png', 'id': '2014-05-23', 'href': '/#/date/2014-05-23'},
+			{'src': '../images/date/white/2014-05-24.png', 'id': '2014-05-24', 'href': '/#/date/2014-05-24'},
+			{'src': '../images/date/white/2014-05-25.png', 'id': '2014-05-25', 'href': '/#/date/2014-05-25'},
+			{'src': '../images/date/white/2014-05-26.png', 'id': '2014-05-26', 'href': '/#/date/2014-05-26'},
+			{'src': '../images/date/white/2014-05-27.png', 'id': '2014-05-27', 'href': '/#/date/2014-05-27'},
+			{'src': '../images/date/white/2014-05-28.png', 'id': '2014-05-28', 'href': '/#/date/2014-05-28'},
+			{'src': '../images/date/white/2014-05-29.png', 'id': '2014-05-29', 'href': '/#/date/2014-05-29'},
+			{'src': '../images/date/white/2014-05-30.png', 'id': '2014-05-30', 'href': '/#/date/2014-05-30'},
+			{'src': '../images/date/white/2014-05-31.png', 'id': '2014-05-31', 'href': '/#/date/2014-05-31'},
+			{'src': '../images/date/white/2014-06-01.png', 'id': '2014-06-01', 'href': '/#/date/2014-06-01'},
+			{'src': '../images/date/white/2014-06-02.png', 'id': '2014-06-02', 'href': '/#/date/2014-06-02'},
+			{'src': '../images/date/white/2014-06-03.png', 'id': '2014-06-03', 'href': '/#/date/2014-06-03'},
+			{'src': '../images/date/white/2014-06-04.png', 'id': '2014-06-04', 'href': '/#/date/2014-06-04'}
+		]
+
+		for(var i in $scope.dateImgList) {
+			if($scope.dateImgList[i].id == date) {
+				$scope.dateImgList[i].src = '../images/date/color/' + date + '.png';
+			}
+		}
+		$scope.$apply();
 
 		// api list setting	
 		var api = {
@@ -46,22 +72,24 @@ angular.module('wonsoonApp')
 			}
 		};
 
-		var oPolyLine,
-			startMarker,
-			currentMarker,
-			pictures_markers = [],
-			pictures = [],
-			route_positions = [];
+		var center,
+				oPolyLine,
+				startMarker,
+				currentMarker,
+				pictures_markers = [],
+				pictures = [],
+				route_positions = [];
 
 		// marker icons
 		var oSize = new nhn.api.map.Size(30, 34);
 		var oOffset = new nhn.api.map.Size(15, 17);
-		var icon = new nhn.api.map.Icon('https://farm6.staticflickr.com/5515/14181411316_e679cd61f6_o.png', oSize, oOffset);
-		var icon_click = new nhn.api.map.Icon('https://farm6.staticflickr.com/5568/14017946547_caa4ce9424_o.png', oSize, oOffset);
-		var icon_wonsoon = new nhn.api.map.Icon('https://farm3.staticflickr.com/2936/14206569692_49cd5a620d_o.png', new nhn.api.map.Size(46, 70));
-		var icon_start = new nhn.api.map.Icon('https://farm6.staticflickr.com/5079/14022441047_5bcd85a3b1_o.png', new nhn.api.map.Size(45, 30));
+		var icon = new nhn.api.map.Icon('../../images/marker/marker.png', oSize, oOffset);
+		var icon_click = new nhn.api.map.Icon('../../images/marker/marker_click.png', oSize, oOffset);
+		var icon_wonsoon = new nhn.api.map.Icon('../../images/marker/icon_wonsoon.png', new nhn.api.map.Size(46, 70));
+		var icon_start = new nhn.api.map.Icon('../../images/marker/icon_start.png', new nhn.api.map.Size(45, 30));
+		
 		// get current activities
-		$.ajax(api.url + api.options.activityInfo.oneDay + date, {
+		$.ajax(api.url + api.options.activityInfo.all, {
 			method: 'get',
 			async: false,
 			crossDomain: true,
@@ -88,13 +116,6 @@ angular.module('wonsoonApp')
 					var picture = {};
 					picture.position = new nhn.api.map.LatLng(data.pictures[i]['lat'], data.pictures[i]['lng']);
 					picture.url = 'http://121.78.54.210:5018/wonsoon' + data.pictures[i]['url'];
-					//console.log("picture " + i);
-					//console.log('lat: ' + data.pictures[i].lat);
-					//console.log('lng: ' + data.pictures[i].lng);
-					//console.log('url: ' + data.pictures[i].url);
-					//console.log('final url: '+ picture.url);
-					console.log("pic: " + i);
-					console.log(data.pictures[i].lat);
 					pictures.push(picture);
 				}
 				return;
@@ -104,8 +125,6 @@ angular.module('wonsoonApp')
 			}
 		});
 
-		
-
 		// get routes of the date
 		$.ajax(api.url + api.options.location.route + date, {
 			method: 'get',
@@ -114,7 +133,6 @@ angular.module('wonsoonApp')
 			success: function(data) {
 				if(data.route &&  data.route.length != 0) {
 					for(var i = 0; i < data.route.length; i++) {
-						console.log("lat: " + i + " - " + data.route[i].lat);
 						route_positions.push(new nhn.api.map.LatLng(data.route[i].lat, data.route[i].lng));
 					}
 				}
@@ -125,10 +143,10 @@ angular.module('wonsoonApp')
 			}
 		});
 
-		var oSeoulCityPoint = route_positions[route_positions.length-1];
+		center = route_positions[route_positions.length-1];
 		var defaultLevel = 8;
 		var oMap = new nhn.api.map.Map(document.getElementById('map'), {
-			point : oSeoulCityPoint,
+			point : center,
 			zoom : defaultLevel,
 			enableWheelZoom : true,
 			enableDragPan : true,
@@ -138,12 +156,14 @@ angular.module('wonsoonApp')
 			activateBicycleMap : false,
 			minMaxLevel : [ 1, 14 ],
 			size : new nhn.api.map.Size(1250, 670)});
+		
 		var oSlider = new nhn.api.map.ZoomControl();
 		oMap.addControl(oSlider);
 		oSlider.setPosition({
 			top : 10,
 			left : 10
 		});
+		
 		var oMapTypeBtn = new nhn.api.map.MapTypeBtn();
 		oMap.addControl(oMapTypeBtn);
 		oMapTypeBtn.setPosition({

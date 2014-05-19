@@ -17,6 +17,15 @@
 	<div class="sub_km">
 		<p>{{ sub_distance }}</p>
 	</div>
+	<div class="date_list">
+		<ul>
+			<li ng-repeat="date in dateImgList">
+				<a href='{{ date.href }}'>
+					<img src='{{ date.src }}' id='{{ date.id }}' class='dateImgList'>
+				</a>
+			</li>
+		</ul>
+	</div>
 	<div id="map">
 	</div>
 </div>
