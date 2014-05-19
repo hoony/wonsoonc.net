@@ -1,4 +1,8 @@
 
+.pics {
+	width: 200px !important;
+}
+
 /* Everything but the jumbotron gets side spacing for mobile first views */
 .twitter-share-button, .fb-like {
 	position: absolute !important;
