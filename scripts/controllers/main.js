@@ -24,8 +24,6 @@ angular.module('wonsoonApp')
 		
 		$scope.showToday = (today.getMonth() + 1) + '.' + today.getDate();
 		$scope.dateImgList = [
-			{'src': '../images/date/white/2014-05-19.png', 'id': '2014-05-19', 'href': '/#/date/2014-05-19'},
-			{'src': '../images/date/white/2014-05-20.png', 'id': '2014-05-20', 'href': '/#/date/2014-05-20'},
 			{'src': '../images/date/white/2014-05-21.png', 'id': '2014-05-21', 'href': '/#/date/2014-05-21'},
 			{'src': '../images/date/white/2014-05-22.png', 'id': '2014-05-22', 'href': '/#/date/2014-05-22'},
 			{'src': '../images/date/white/2014-05-23.png', 'id': '2014-05-23', 'href': '/#/date/2014-05-23'},

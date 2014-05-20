@@ -1,18 +1,38 @@
+body {
+	margin: 0px;
+	font-size: 14px;
+	line-height: 1.42857;
+}
+
+.container:after {
+	clear: both;
+}
+
+.container:after, .container:before {
+	display: table;
+	content: " ";
+}
+
+.container {
+	padding-left: 15px;
+	padding-right: 15px;
+}
+
 /* Everything but the jumbotron gets side spacing for mobile first views */
 .twitter-share-button, .fb-like {
 	position: absolute !important;
 	display: block !important;
 	margin-right: 20px;
-	z-index: 10;
+	z-index: 11;
 }
 
 .fb-like {
-	left: 300px;
-	bottom: 65px;
+	left: 600px;
+	bottom: 70px;
 }
 
 .twitter-share-button {
-	left: 220px;
+	left: 520px;
 	bottom: 70px;
 }
 
@@ -111,7 +131,7 @@
 
 .date_list ul li {
 	float: left;
-	margin-left: 19px;
+	margin-left: 21px;
 }
 
 #map {
@@ -120,4 +140,17 @@
 	width: 100%;
 	min-height: 670px;
 	border-radius: 40px;
+}
+
+footer {
+	clear: both;
+	position: absolute;
+	z-index: 10;
+	bottom: 10px;
+	left: 250px;
+}
+
+.teamInfo {
+	color: white;
+	text-align: center;
 }
