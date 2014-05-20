@@ -83,8 +83,8 @@ angular.module('wonsoonApp')
 		var oOffset = new nhn.api.map.Size(15, 17);
 		var icon = new nhn.api.map.Icon('../../images/marker/marker.png', oSize, oOffset);
 		var icon_click = new nhn.api.map.Icon('../../images/marker/marker_click.png', oSize, oOffset);
-		var icon_wonsoon = new nhn.api.map.Icon('../../images/marker/icon_wonsoon.png', new nhn.api.map.Size(46, 70));
-		var icon_start = new nhn.api.map.Icon('../../images/marker/icon_start.png', new nhn.api.map.Size(45, 30));
+		var icon_wonsoon = new nhn.api.map.Icon('../../images/marker/icon_wonsoon.png', new nhn.api.map.Size(76, 90));
+		var icon_start = new nhn.api.map.Icon('../../images/marker/icon_start.png', new nhn.api.map.Size(55, 35));
 		
 		// get current activities
 		$.ajax(api.url + api.options.activityInfo.all, {
