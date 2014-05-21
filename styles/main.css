@@ -132,7 +132,7 @@ body {
 
 .date_list ul li {
 	float: left;
-	margin-left: 12px;
+	margin-left: 6px;
 }
 
 #map {
@@ -165,3 +165,4 @@ footer {
 	max-width: 300px;
 	max-height: 300px;
 }
+

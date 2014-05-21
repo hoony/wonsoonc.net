@@ -6,6 +6,7 @@ angular.module('wonsoonApp')
 		var date = '',
 				today = new Date(),
 				validUrl = false;
+
 		if($routeParams.date != undefined) {
 			for(var d in dateList) {
 				if(dateList[d] == $routeParams.date) {
@@ -25,7 +26,7 @@ angular.module('wonsoonApp')
 		$scope.showToday = (today.getMonth() + 1) + '.' + today.getDate();
 		
 		$scope.dateImgList = [
-			//{'src': '../images/date/white/2014-05-21.png', 'id': '2014-05-21', 'href': '/#/date/2014-05-21'},
+			{'src': '../images/date/white/2014-05-21.png', 'id': '2014-05-21', 'href': '/#/date/2014-05-21'},
 			{'src': '../images/date/white/2014-05-22.png', 'id': '2014-05-22', 'href': '/#/date/2014-05-22'},
 			{'src': '../images/date/white/2014-05-23.png', 'id': '2014-05-23', 'href': '/#/date/2014-05-23'},
 			{'src': '../images/date/white/2014-05-24.png', 'id': '2014-05-24', 'href': '/#/date/2014-05-24'},
@@ -45,11 +46,10 @@ angular.module('wonsoonApp')
 		for(var i in $scope.dateImgList) {
 			if($scope.dateImgList[i].id == date) {
 				$scope.dateImgList[i].src = '../images/date/color/' + date + '.png';
-				return;
+				break;
 			}
 		}
-		$scope.$apply();
-
+		
 		// api list setting	
 		var api = {
 			'url': 'http://121.78.54.210:5018/wonsoon',
@@ -95,6 +95,7 @@ angular.module('wonsoonApp')
 			async: false,
 			crossDomain: true,
 			success: function(data) {
+				console.log(data.activities);
 				$scope.calorie = data.activities.calorie + '';
 				if($scope.calorie > 1000) {
 					$scope.calorie = $scope.calorie.slice(0, -3) + ',' + $scope.calorie.slice(-3);
@@ -123,12 +124,11 @@ angular.module('wonsoonApp')
 				for(var i = 0; i < data.pictures.length; i++) {
 					if( i != 0 && data.pictures[i].lat == data.pictures[i-1].lat && data.pictures[i].lng == data.pictures[i-1].lng ) {
 						data.pictures[i].lng = pictures[i-1].lng +  0.0001;
-						console.log(data.pictures[i-1].lat);
-						console.log(data.pictures[i].lat);
 					}
 					var picture = {};
 					picture.lat = data.pictures[i].lat;
 					picture.lng = data.pictures[i].lng;
+					picture.time = data.pictures[i].datetime.slice(11, 19);
 					picture.position = new nhn.api.map.LatLng(picture.lat, picture.lng);
 					picture.url = 'http://121.78.54.210:5018/wonsoon' + data.pictures[i]['url'];
 					pictures.push(picture);
@@ -234,7 +234,7 @@ angular.module('wonsoonApp')
 
 		// show markers
 		for ( var i = 0; i< pictures.length; i++) {
-			pictures_markers[i] = new nhn.api.map.Marker(icon, {title: "<img src='" + pictures[i].url + "' class='pics'/>"});
+			pictures_markers[i] = new nhn.api.map.Marker(icon, {title: "<p class='pics_time'>현재 시간:    " + pictures[i].time + "</p>" + "<img src='" + pictures[i].url + "' class='pics'/>"});
 			pictures_markers[i].setPoint(pictures[i].position);
 			oMap.addOverlay(pictures_markers[i]);
 		}
