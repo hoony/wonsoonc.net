@@ -25,6 +25,7 @@ angular.module('wonsoonApp')
 		$scope.showToday = (today.getMonth() + 1) + '.' + today.getDate();
 		
 		$scope.dateImgList = [
+			//{'src': '../images/date/white/2014-05-21.png', 'id': '2014-05-21', 'href': '/#/date/2014-05-21'},
 			{'src': '../images/date/white/2014-05-22.png', 'id': '2014-05-22', 'href': '/#/date/2014-05-22'},
 			{'src': '../images/date/white/2014-05-23.png', 'id': '2014-05-23', 'href': '/#/date/2014-05-23'},
 			{'src': '../images/date/white/2014-05-24.png', 'id': '2014-05-24', 'href': '/#/date/2014-05-24'},
@@ -85,7 +86,7 @@ angular.module('wonsoonApp')
 		var icon = new nhn.api.map.Icon('../../images/marker/marker.png', oSize, oOffset);
 		var icon_click = new nhn.api.map.Icon('../../images/marker/marker_click.png', oSize, oOffset);
 		var icon_wonsoon = new nhn.api.map.Icon('../../images/marker/icon_wonsoon.png', new nhn.api.map.Size(86, 100));
-		//var icon_wonsoon = new nhn.api.map.Icon('../../images/marker/icon_wonsoon.png', new nhn.api.map.Size(15, 17));
+		var icon_wonsoon_small = new nhn.api.map.Icon('../../images/marker/icon_wonsoon.png', new nhn.api.map.Size(20, 25));
 		var icon_start = new nhn.api.map.Icon('../../images/marker/icon_start.png', new nhn.api.map.Size(65, 45));
 		
 		// get current activities
@@ -205,21 +206,28 @@ angular.module('wonsoonApp')
 
 			if(oTarget instanceof nhn.api.map.Marker) {
 				var oMarker = oTarget;
-				if(oMarker.getIcon() != icon_start && oMarker.getIcon() != icon_wonsoon) {
+				if(oMarker.getIcon() != icon_start && oMarker.getIcon() != icon_wonsoon && oMarker.getIcon() != icon_wonsoon_small) {
 					oMarker.setIcon(icon_click);
 					mapInfoWindow.setVisible(false);
 					oLabel.setVisible(true, oMarker);
+				} else if (oMarker.getIcon() == icon_wonsoon) {
+					oMarker.setIcon(icon_wonsoon_small);
+				} else if (oMarker.getIcon() == icon_wonsoon_small) {
+					oMarker.setIcon(icon_wonsoon);
 				}
 			}
 		});
 
-
 		oMap.attach('mouseleave', function(oCustomEvent) {
 			var oTarget = oCustomEvent.target;
 			if (oTarget instanceof nhn.api.map.Marker) {
-				if(oTarget.getIcon() != icon_start && oTarget.getIcon() != icon_wonsoon) {
+				if(oTarget.getIcon() != icon_start && oTarget.getIcon() != icon_wonsoon && oTarget.getIcon() != icon_wonsoon_small) {
 					oLabel.setVisible(false);
 					oTarget.setIcon(icon);
+				} else if (oTarget.getIcon() == icon_wonsoon) {
+				//	oTarget.setIcon(icon_wonsoon);
+				} else if (oTarget.getIcon() == icon_wonsoon_small) {
+				//	oTarget.setIcon(icon_wonsoon);
 				}
 			}
 		});
