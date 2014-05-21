@@ -104,7 +104,7 @@ body {
 
 .km {
 	top: 290px;
-	left: 760px;
+	left: 750px;
 }
 
 .sub_km {
@@ -127,11 +127,12 @@ body {
 
 .date_list ul {
 	list-style: none;
+	padding-left: 0px;
 }
 
 .date_list ul li {
 	float: left;
-	margin-left: 21px;
+	margin-left: 12px;
 }
 
 #map {
@@ -144,10 +145,10 @@ body {
 
 footer {
 	clear: both;
-	position: absolute;
+	position: relative;
 	z-index: 10;
-	bottom: 10px;
-	left: 250px;
+	bottom: 70px;
+	text-align: center;
 }
 
 .teamInfo {

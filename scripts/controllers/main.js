@@ -2,7 +2,7 @@
 
 angular.module('wonsoonApp')
 	.controller('MainCtrl', function ($scope, $http, $routeParams, $location, $window) {
-		var dateList = ['2014-05-17','2014-05-18', '2014-05-19', '2014-05-20', '2014-05-21', '2014-05-22', '2014-05-23', '2014-05-24', '2014-05-25', '2014-05-26', '2014-05-27', '2014-05-28', '2014-05-29', '2014-05-30', '2014-05-31', '2014-06-01', '2014-06-02', '2014-06-03', '2014-06-04'];
+		var dateList = ['2014-05-20', '2014-05-21', '2014-05-22', '2014-05-23', '2014-05-24', '2014-05-25', '2014-05-26', '2014-05-27', '2014-05-28', '2014-05-29', '2014-05-30', '2014-05-31', '2014-06-01', '2014-06-02', '2014-06-03', '2014-06-04'];
 		var date = '',
 				today = new Date(),
 				validUrl = false;
@@ -24,7 +24,6 @@ angular.module('wonsoonApp')
 		
 		$scope.showToday = (today.getMonth() + 1) + '.' + today.getDate();
 		$scope.dateImgList = [
-			{'src': '../images/date/white/2014-05-21.png', 'id': '2014-05-21', 'href': '/#/date/2014-05-21'},
 			{'src': '../images/date/white/2014-05-22.png', 'id': '2014-05-22', 'href': '/#/date/2014-05-22'},
 			{'src': '../images/date/white/2014-05-23.png', 'id': '2014-05-23', 'href': '/#/date/2014-05-23'},
 			{'src': '../images/date/white/2014-05-24.png', 'id': '2014-05-24', 'href': '/#/date/2014-05-24'},
@@ -83,8 +82,8 @@ angular.module('wonsoonApp')
 		var oOffset = new nhn.api.map.Size(15, 17);
 		var icon = new nhn.api.map.Icon('../../images/marker/marker.png', oSize, oOffset);
 		var icon_click = new nhn.api.map.Icon('../../images/marker/marker_click.png', oSize, oOffset);
-		var icon_wonsoon = new nhn.api.map.Icon('../../images/marker/icon_wonsoon.png', new nhn.api.map.Size(76, 90));
-		var icon_start = new nhn.api.map.Icon('../../images/marker/icon_start.png', new nhn.api.map.Size(55, 35));
+		var icon_wonsoon = new nhn.api.map.Icon('../../images/marker/icon_wonsoon.png', new nhn.api.map.Size(86, 100));
+		var icon_start = new nhn.api.map.Icon('../../images/marker/icon_start.png', new nhn.api.map.Size(65, 45));
 		
 		// get current activities
 		$.ajax(api.url + api.options.activityInfo.all, {
@@ -93,7 +92,7 @@ angular.module('wonsoonApp')
 			crossDomain: true,
 			success: function(data) {
 				$scope.calorie = data.activities.calorie;
-				$scope.distance = (0.001 * data.activities.distance);
+				$scope.distance = ((data.activities.distance * 0.001).toFixed(3));
 				$scope.step = data.activities.step;
 				$scope.sub_calorie = '7 * 10';
 				$scope.sub_distance = 12;
@@ -142,7 +141,7 @@ angular.module('wonsoonApp')
 		});
 
 		center = route_positions[route_positions.length-1];
-		var defaultLevel = 8;
+		var defaultLevel = 12;
 		var oMap = new nhn.api.map.Map(document.getElementById('map'), {
 			point : center,
 			zoom : defaultLevel,
