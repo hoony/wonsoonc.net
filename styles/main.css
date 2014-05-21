@@ -88,13 +88,13 @@ body {
 }
 
 .walk {
-	top: 370px;
-	left: 450px;
+	top: 380px;
+	left: 440px;
 }
 
 .kcal {
 	top: 330px;
-	left: 600px;
+	left: 590px;
 }
 
 .sub_kcal {
@@ -104,7 +104,7 @@ body {
 
 .km {
 	top: 290px;
-	left: 750px;
+	left: 780px;
 }
 
 .sub_km {
@@ -140,6 +140,9 @@ body {
 	top: 610px;
 	width: 100%;
 	min-height: 670px;
+}
+
+.nmap {
 	border-radius: 40px;
 }
 
@@ -154,4 +157,11 @@ footer {
 .teamInfo {
 	color: white;
 	text-align: center;
+}
+
+.pics {
+	height: auto;
+	width: auto;
+	max-width: 300px;
+	max-height: 300px;
 }

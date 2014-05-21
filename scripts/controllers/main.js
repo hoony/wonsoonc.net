@@ -23,6 +23,7 @@ angular.module('wonsoonApp')
 		}
 		
 		$scope.showToday = (today.getMonth() + 1) + '.' + today.getDate();
+		
 		$scope.dateImgList = [
 			{'src': '../images/date/white/2014-05-22.png', 'id': '2014-05-22', 'href': '/#/date/2014-05-22'},
 			{'src': '../images/date/white/2014-05-23.png', 'id': '2014-05-23', 'href': '/#/date/2014-05-23'},
@@ -43,6 +44,7 @@ angular.module('wonsoonApp')
 		for(var i in $scope.dateImgList) {
 			if($scope.dateImgList[i].id == date) {
 				$scope.dateImgList[i].src = '../images/date/color/' + date + '.png';
+				return;
 			}
 		}
 		$scope.$apply();
@@ -83,6 +85,7 @@ angular.module('wonsoonApp')
 		var icon = new nhn.api.map.Icon('../../images/marker/marker.png', oSize, oOffset);
 		var icon_click = new nhn.api.map.Icon('../../images/marker/marker_click.png', oSize, oOffset);
 		var icon_wonsoon = new nhn.api.map.Icon('../../images/marker/icon_wonsoon.png', new nhn.api.map.Size(86, 100));
+		//var icon_wonsoon = new nhn.api.map.Icon('../../images/marker/icon_wonsoon.png', new nhn.api.map.Size(15, 17));
 		var icon_start = new nhn.api.map.Icon('../../images/marker/icon_start.png', new nhn.api.map.Size(65, 45));
 		
 		// get current activities
@@ -91,11 +94,18 @@ angular.module('wonsoonApp')
 			async: false,
 			crossDomain: true,
 			success: function(data) {
-				$scope.calorie = data.activities.calorie;
-				$scope.distance = ((data.activities.distance * 0.001).toFixed(3));
-				$scope.step = data.activities.step;
-				$scope.sub_calorie = '7 * 10';
-				$scope.sub_distance = 12;
+				$scope.calorie = data.activities.calorie + '';
+				if($scope.calorie > 1000) {
+					$scope.calorie = $scope.calorie.slice(0, -3) + ',' + $scope.calorie.slice(-3);
+				}
+
+				$scope.distance = ((data.activities.distance * 0.001).toFixed(1));
+				
+				$scope.step = data.activities.step + '';
+				if($scope.step > 1000) {
+					$scope.step = $scope.step.slice(0, -3) + ',' + $scope.step.slice(-3);
+				}
+
 				return;
 			},
 			error: function(err) {
@@ -110,8 +120,15 @@ angular.module('wonsoonApp')
 			crossDomain: true,
 			success: function(data) {
 				for(var i = 0; i < data.pictures.length; i++) {
+					if( i != 0 && data.pictures[i].lat == data.pictures[i-1].lat && data.pictures[i].lng == data.pictures[i-1].lng ) {
+						data.pictures[i].lng = pictures[i-1].lng +  0.0001;
+						console.log(data.pictures[i-1].lat);
+						console.log(data.pictures[i].lat);
+					}
 					var picture = {};
-					picture.position = new nhn.api.map.LatLng(data.pictures[i]['lat'], data.pictures[i]['lng']);
+					picture.lat = data.pictures[i].lat;
+					picture.lng = data.pictures[i].lng;
+					picture.position = new nhn.api.map.LatLng(picture.lat, picture.lng);
 					picture.url = 'http://121.78.54.210:5018/wonsoon' + data.pictures[i]['url'];
 					pictures.push(picture);
 				}
@@ -141,7 +158,7 @@ angular.module('wonsoonApp')
 		});
 
 		center = route_positions[route_positions.length-1];
-		var defaultLevel = 12;
+		var defaultLevel = 11;
 		var oMap = new nhn.api.map.Map(document.getElementById('map'), {
 			point : center,
 			zoom : defaultLevel,
@@ -196,6 +213,7 @@ angular.module('wonsoonApp')
 			}
 		});
 
+
 		oMap.attach('mouseleave', function(oCustomEvent) {
 			var oTarget = oCustomEvent.target;
 			if (oTarget instanceof nhn.api.map.Marker) {
@@ -208,7 +226,7 @@ angular.module('wonsoonApp')
 
 		// show markers
 		for ( var i = 0; i< pictures.length; i++) {
-			pictures_markers[i] = new nhn.api.map.Marker(icon, {title: "<img src='" + pictures[i].url + "' style='width:200px; height:300px;' class='pics'/>"});
+			pictures_markers[i] = new nhn.api.map.Marker(icon, {title: "<img src='" + pictures[i].url + "' class='pics'/>"});
 			pictures_markers[i].setPoint(pictures[i].position);
 			oMap.addOverlay(pictures_markers[i]);
 		}
