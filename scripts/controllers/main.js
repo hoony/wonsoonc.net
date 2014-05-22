@@ -95,7 +95,6 @@ angular.module('wonsoonApp')
 			async: false,
 			crossDomain: true,
 			success: function(data) {
-				console.log(data.activities);
 				$scope.calorie = data.activities.calorie + '';
 				if($scope.calorie > 1000) {
 					$scope.calorie = $scope.calorie.slice(0, -3) + ',' + $scope.calorie.slice(-3);
@@ -121,13 +120,18 @@ angular.module('wonsoonApp')
 			async: false,
 			crossDomain: true,
 			success: function(data) {
+				console.log(date);
 				for(var i = 0; i < data.pictures.length; i++) {
 					if( i != 0 && data.pictures[i].lat == data.pictures[i-1].lat && data.pictures[i].lng == data.pictures[i-1].lng ) {
 						data.pictures[i].lng = pictures[i-1].lng +  0.0001;
 					}
+
 					var picture = {};
 					picture.lat = data.pictures[i].lat;
 					picture.lng = data.pictures[i].lng;
+					
+					//2014-05-22 fix lat, lng
+					
 					picture.time = data.pictures[i].datetime.slice(11, 19);
 					picture.position = new nhn.api.map.LatLng(picture.lat, picture.lng);
 					picture.url = 'http://121.78.54.210:5018/wonsoon' + data.pictures[i]['url'];
