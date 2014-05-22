@@ -114,6 +114,31 @@ angular.module('wonsoonApp')
 			}
 		});
 
+		$.ajax(api.url + api.options.activityInfo.oneDay + date, {
+			method: 'get',
+			async: false,
+			crossDomain: true,
+			success: function(data) {
+				$scope.sub_calorie = data.activities.calorie + '';
+				if($scope.sub_calorie > 1000) {
+					$scope.sub_calorie = $scope.sub_calorie.slice(0, -3) + ',' + $scope.sub_calorie.slice(-3);
+				}
+
+				$scope.sub_distance = ((data.activities.distance * 0.001).toFixed(1));
+
+				$scope.sub_step = data.activities.step + '';
+				if($scope.sub_step > 1000) {
+					$scope.sub_step = $scope.sub_step.slice(0, -3) + ',' + $scope.sub_step.slice(-3);
+				}
+
+				return;
+			},
+			error: function(err) {
+				console.log(err);	
+			}
+		});
+
+
 		// get pictures of the date
 		$.ajax(api.url + api.options.pics.oneDay + date, {
 			method: 'get',
