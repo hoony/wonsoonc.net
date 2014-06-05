@@ -1,0 +1,35 @@
+<div class="container">
+	<div class="today">
+		<p>{{ today }}</p>
+	</div>
+	<div class="walk">
+		<p>{{ step }}</p>
+	</div>
+	<div class="sub_walk">
+		<p>{{ sub_step }}</p>
+	</div>
+	<div class="kcal">
+		<p>{{ calorie }}</p>
+	</div>
+	<div class="sub_kcal">
+		<p>{{ sub_calorie }}</p>
+	</div>
+	<div class="km">
+		<p>{{ distance }}</p>
+	</div>
+	<div class="sub_km">
+		<p>{{ sub_distance }}</p>
+	</div>
+	<a href="http://www.ustream.tv/wonsoontv" target="_blank"><img src="../images/button/tv_btn.png" class="wonsoon_tv" /></a>
+	<div class="date_list">
+		<ul>
+			<li ng-repeat="date in dateImgList">
+				<a href='{{ date.href }}'>
+					<img src='{{ date.src }}' id='{{ date.id }}' class='dateImgList'>
+				</a>
+			</li>
+		</ul>
+	</div>
+	<div id="map">
+	</div>
+</div>

@@ -1,8 +1,9 @@
 'use strict';
 
 angular.module('wonsoonApp')
-	.controller('MainCtrl', function ($scope, $http, $routeParams, $location, $window) {
-		var dateList = ['2014-05-20', '2014-05-21', '2014-05-22', '2014-05-23', '2014-05-24', '2014-05-25', '2014-05-26', '2014-05-27', '2014-05-28', '2014-05-29', '2014-05-30', '2014-05-31', '2014-06-01', '2014-06-02', '2014-06-03', '2014-06-04'];
+	.controller('AllCtrl', function ($scope, $http, $routeParams, $location, $window) {
+		var dateList = ['2014-05-20', '2014-05-21', '2014-05-22', '2014-05-23', '2014-05-24', '2014-05-25', '2014-05-26', '2014-05-27', '2014-05-28', '2014-05-29', '2014-05-30', '2014-05-31', '2014-06-01', '2014-06-02', '2014-06-03'];
+		/*
 		var date = '',
 				today = new Date(),
 				validUrl = false;
@@ -22,8 +23,8 @@ angular.module('wonsoonApp')
 		if(!validUrl) {
 			$location.path('/');
 		}
-		
-		$scope.showToday = (today.getMonth() + 1) + '.' + today.getDate();
+		*/
+		//$scope.showToday = (today.getMonth() + 1) + '.' + today.getDate();
 		
 		$scope.dateImgList = [
 			{'src': '../images/date/white/2014-05-21.png', 'id': '2014-05-21', 'href': '/#/date/2014-05-21'},
@@ -41,14 +42,14 @@ angular.module('wonsoonApp')
 			{'src': '../images/date/white/2014-06-02.png', 'id': '2014-06-02', 'href': '/#/date/2014-06-02'},
 			{'src': '../images/date/white/2014-06-03.png', 'id': '2014-06-03', 'href': '/#/date/2014-06-03'}
 		]
-
+		/*
 		for(var i in $scope.dateImgList) {
 			if($scope.dateImgList[i].id == date) {
 				$scope.dateImgList[i].src = '../images/date/color/' + date + '.png';
 				break;
 			}
 		}
-		
+		*/
 		// api list setting	
 		var api = {
 			'url': 'http://121.78.54.210:5018/wonsoon',
@@ -112,7 +113,7 @@ angular.module('wonsoonApp')
 				console.log(err);
 			}
 		});
-
+		/*
 		$.ajax(api.url + api.options.activityInfo.oneDay + date, {
 			method: 'get',
 			async: false,
@@ -137,55 +138,56 @@ angular.module('wonsoonApp')
 			}
 		});
 
-
+		*/
 		// get pictures of the date
-		$.ajax(api.url + api.options.pics.oneDay + date, {
-			method: 'get',
-			async: false,
-			crossDomain: true,
-			success: function(data) {
-				console.log(date);
-				for(var i = 0; i < data.pictures.length; i++) {
-					if( i != 0 && data.pictures[i].lat == data.pictures[i-1].lat && data.pictures[i].lng == data.pictures[i-1].lng ) {
-						data.pictures[i].lng = pictures[i-1].lng +  0.0001;
+		for(var d in dateList) {	
+			$.ajax(api.url + api.options.pics.oneDay + dateList[d], {
+				method: 'get',
+				async: false,
+				crossDomain: true,
+				success: function(data) {
+					for(var i = 0; i < data.pictures.length; i++) {
+						if( i != 0 && data.pictures[i].lat == data.pictures[i-1].lat && data.pictures[i].lng == data.pictures[i-1].lng ) {
+							data.pictures[i].lng = pictures[i-1].lng +  0.0001;
+						}
+	
+						var picture = {};
+						picture.lat = data.pictures[i].lat;
+						picture.lng = data.pictures[i].lng;
+						
+						//2014-05-22 fix lat, lng
+						
+						picture.time = data.pictures[i].datetime.slice(11, 19);
+						picture.position = new nhn.api.map.LatLng(picture.lat, picture.lng);
+						picture.url = 'http://121.78.54.210:5018/wonsoon' + data.pictures[i]['url'];
+						pictures.push(picture);
 					}
-
-					var picture = {};
-					picture.lat = data.pictures[i].lat;
-					picture.lng = data.pictures[i].lng;
-					
-					//2014-05-22 fix lat, lng
-					
-					picture.time = data.pictures[i].datetime.slice(11, 19);
-					picture.position = new nhn.api.map.LatLng(picture.lat, picture.lng);
-					picture.url = 'http://121.78.54.210:5018/wonsoon' + data.pictures[i]['url'];
-					pictures.push(picture);
+					return;
+				},
+				error: function(err) {
+					console.log(err);
 				}
-				return;
-			},
-			error: function(err) {
-				console.log(err);
-			}
-		});
-
+			});
+		}
 		// get routes of the date
-		$.ajax(api.url + api.options.location.route + date, {
-			method: 'get',
-			async: false,
-			crossDomain: true,
-			success: function(data) {
-				if(data.route &&  data.route.length != 0) {
-					for(var i = 0; i < data.route.length; i++) {
-						route_positions.push(new nhn.api.map.LatLng(data.route[i].lat, data.route[i].lng));
+		for(var d in dateList) {
+			$.ajax(api.url + api.options.location.route + dateList[d], {
+				method: 'get',
+				async: false,
+				crossDomain: true,
+				success: function(data) {
+					if(data.route &&  data.route.length != 0) {
+						for(var i = 0; i < data.route.length; i++) {
+							route_positions.push(new nhn.api.map.LatLng(data.route[i].lat, data.route[i].lng));
+						}
 					}
+					return;
+				},
+				error: function(err) {
+					console.log(err);
 				}
-				return;
-			},
-			error: function(err) {
-				console.log(err);
-			}
-		});
-
+			});
+		}
 		center = route_positions[route_positions.length-1];
 		var defaultLevel = 11;
 		var oMap = new nhn.api.map.Map(document.getElementById('map'), {

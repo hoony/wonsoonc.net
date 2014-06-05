@@ -14,6 +14,10 @@ angular
         templateUrl: 'views/main.html',
         controller: 'MainCtrl'
       })
+	  .when('/all', {
+		templateUrl: 'views/all.html',
+		controller: 'AllCtrl'
+	  })
       .otherwise({
         redirectTo: '/'
       });
