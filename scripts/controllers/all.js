@@ -189,7 +189,7 @@ angular.module('wonsoonApp')
 			});
 		}
 		center = route_positions[route_positions.length-1];
-		var defaultLevel = 11;
+		var defaultLevel = 7;
 		var oMap = new nhn.api.map.Map(document.getElementById('map'), {
 			point : center,
 			zoom : defaultLevel,
